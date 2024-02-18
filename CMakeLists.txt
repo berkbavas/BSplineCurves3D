@@ -11,20 +11,23 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(INCLUDE_DIR Dependencies/qtimgui/include/src
-                Dependencies/qtimgui/include/modules/imgui 
-                Dependencies/Eigen
-                )
+set(INCLUDE_DIR Dependencies/qtimgui/include/qtimgui
+				Dependencies/qtimgui/include/imgui
+				Dependencies/qtimgui/include/implot
+				Dependencies/Eigen
+				)
+				
 set(LIBS_DIR Dependencies/qtimgui/lib)
+
 set(LIBS imgui implot qt_imgui_widgets)
 
 find_package(Qt6 COMPONENTS Core Widgets OpenGL Gui Concurrent REQUIRED)
 
 add_compile_options(/bigobj)
 
-file(GLOB SOURCES Src/Main.cpp Src/*.cpp Include/*.h Src/*.qrc)
+file(GLOB SOURCES Sources/*.cpp Sources/*.h Sources/*.qrc)
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Include" ${INCLUDE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${INCLUDE_DIR})
 
 link_directories(${LIBS_DIR})
 
@@ -32,19 +35,19 @@ add_executable(BSplineCurves3D ${SOURCES})
 
 target_link_libraries(BSplineCurves3D Qt6::Core Qt6::Widgets Qt6::OpenGL Qt6::Concurrent ${LIBS})
 
-add_custom_command(TARGET BSplineCurves3D POST_BUILD
-    COMMAND xcopy /E /Y 
+add_custom_command(TARGET BSplineCurves3D
+	POST_BUILD COMMAND xcopy /E /Y 
 	"\"$(SolutionDir)../Resources\""
 	"\"$(OutDir)Resources/*\""
 )
 
-add_custom_command(TARGET BSplineCurves3D POST_BUILD
-    COMMAND xcopy /E /Y 
+add_custom_command(TARGET BSplineCurves3D
+	POST_BUILD COMMAND xcopy /E /Y 
 	"\"$(SolutionDir)../Resources\""
 	"\"$(BuildDir)Resources/*\""
 )
 
-add_custom_command(TARGET BSplineCurves3D POST_BUILD
-    COMMAND $ENV{Qt6_DIR}/bin/windeployqt.exe 
+add_custom_command(TARGET BSplineCurves3D
+	POST_BUILD COMMAND $ENV{Qt6_DIR}/bin/windeployqt.exe 
 	"\"$(OutDir)$(TargetName)$(TargetExt)\""
 )
