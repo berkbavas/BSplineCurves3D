@@ -24,13 +24,12 @@ The vertex generation algorithm can be found in `PipeDumb.geom` shader or in `Ge
 10) Build & Run with `Release` configuration.
 
 ## Screenshots
-![](Screenshots/1.png)
+![1](https://github.com/berkbavas/BSplineCurves3D/assets/53399385/6235fa70-f048-4890-b0e0-d44e470c30bd)
 
-![](Screenshots/2.png)
+![2](https://github.com/berkbavas/BSplineCurves3D/assets/53399385/61454042-3d5e-4b35-8330-d4c486bc9390)
 
 ## UML Diagram
-
-![](UML.png)
+![UML](https://github.com/berkbavas/BSplineCurves3D/assets/53399385/c2c29dcc-d797-4f91-967c-afb11702af70)
 
 ## Keywords
 `C++`,
