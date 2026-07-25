@@ -1,0 +1,84 @@
+#version 450 core
+
+layout(quads, equal_spacing, ccw) in;
+
+uniform mat4 uVP;
+uniform float uRadius;
+
+out vec3 fsWorldPosition;
+out vec3 fsNormal;
+
+const float kEpsilon = 1e-6;
+const float kTwoPi = 6.28318530718;
+
+vec3 EvaluateBezier(vec3 P0, vec3 P1, vec3 P2, vec3 P3, float T)
+{
+    float U = 1.0 - T;
+    float UU = U * U;
+    float TT = T * T;
+
+    return (UU * U) * P0 + (3.0 * UU * T) * P1 + (3.0 * U * TT) * P2 + (TT * T) * P3;
+}
+
+vec3 EvaluateBezierDerivative(vec3 P0, vec3 P1, vec3 P2, vec3 P3, float T)
+{
+    float U = 1.0 - T;
+    return (3.0 * U * U) * (P1 - P0) + (6.0 * U * T) * (P2 - P1) + (3.0 * T * T) * (P3 - P2);
+}
+
+vec3 SafeNormalize(vec3 V, vec3 Fallback)
+{
+    float L2 = dot(V, V);
+    if (L2 < kEpsilon)
+    {
+        return Fallback;
+    }
+
+    return V * inversesqrt(L2);
+}
+
+vec3 SelectLeastAlignedAxis(vec3 Direction)
+{
+    vec3 AbsD = abs(Direction);
+
+    if (AbsD.x <= AbsD.y && AbsD.x <= AbsD.z)
+    {
+        return vec3(1.0, 0.0, 0.0);
+    }
+    if (AbsD.y <= AbsD.x && AbsD.y <= AbsD.z)
+    {
+        return vec3(0.0, 1.0, 0.0);
+    }
+    return vec3(0.0, 0.0, 1.0);
+}
+
+void main()
+{
+    vec3 P0 = gl_in[0].gl_Position.xyz;
+    vec3 P1 = gl_in[1].gl_Position.xyz;
+    vec3 P2 = gl_in[2].gl_Position.xyz;
+    vec3 P3 = gl_in[3].gl_Position.xyz;
+
+    float T = clamp(gl_TessCoord.x, 0.0, 1.0);
+    float Sector = clamp(gl_TessCoord.y, 0.0, 1.0);
+
+    vec3 Center = EvaluateBezier(P0, P1, P2, P3, T);
+
+    vec3 RawTangent = EvaluateBezierDerivative(P0, P1, P2, P3, T);
+    vec3 Tangent = SafeNormalize(RawTangent, vec3(0.0, 0.0, 1.0));
+
+    // Pick an axis least aligned with tangent to avoid cross-product collapse.
+    vec3 ReferenceAxis = SelectLeastAlignedAxis(Tangent);
+    vec3 NormalAxis = SafeNormalize(cross(ReferenceAxis, Tangent), vec3(1.0, 0.0, 0.0));
+    vec3 Bitangent = SafeNormalize(cross(Tangent, NormalAxis), vec3(0.0, 1.0, 0.0));
+
+    float Angle = Sector * kTwoPi;
+    vec3 CircularNormal = SafeNormalize(cos(Angle) * NormalAxis + sin(Angle) * Bitangent, NormalAxis);
+
+    vec3 WorldPosition = Center + CircularNormal * uRadius;
+
+    fsWorldPosition = WorldPosition;
+    fsNormal = CircularNormal;
+
+    gl_Position = uVP * vec4(WorldPosition, 1.0);
+}

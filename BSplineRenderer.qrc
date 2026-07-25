@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+    <file>Resources/Shaders/Model.vert</file>
+    <file>Resources/Shaders/Model.frag</file>
+    <file>Resources/Shaders/SkyBox.vert</file>
+    <file>Resources/Shaders/SkyBox.frag</file>
+    <file>Resources/Shaders/Spline.vert</file>
+    <file>Resources/Shaders/Spline.tcs</file>
+    <file>Resources/Shaders/Spline.tes</file>
+    <file>Resources/Shaders/Spline.frag</file>
+    <file>Resources/Shaders/CurveSelection.frag</file>
+    </qresource>
+</RCC>
