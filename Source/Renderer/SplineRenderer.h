@@ -16,10 +16,10 @@ namespace BSplineRenderer
     // Glow effect settings structure
     struct GlowSettings
     {
-        float Intensity{ 1.0f };    // Glow parlaklık yoğunluğu (0.0 - 3.0)
-        float Pulse{ 0.0f };        // Puls animasyon hızı (0.0 = kapalı)
-        float Shimmer{ 0.0f };      // Shimmer/parıltı efekti (0.0 - 1.0)
-        float CoreBoost{ 0.0f };    // Merkez parlaklık güçlendirmesi (0.0 - 2.0)
+        float Intensity{ 1.0f }; // Glow brightness intensity (0.0 - 3.0)
+        float Pulse{ 0.0f };     // Pulse animation speed (0.0 = disabled)
+        float Shimmer{ 0.0f };   // Shimmer / sparkle effect (0.0 - 1.0)
+        float CoreBoost{ 0.0f }; // Center brightness boost (0.0 - 2.0)
     };
 
     class SplineRenderer : protected QOpenGLFunctions_4_5_Core

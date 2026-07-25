@@ -60,18 +60,18 @@ namespace BSplineRenderer
         bool mShowStatistics{ false };
         bool mShowHelp{ false };
 
-        // Preset şekil parametreleri
+        // Preset shape parameters
         float mPresetRadius{ 5.0f };
         float mPresetHeight{ 10.0f };
         int mPresetPoints{ 24 };
         int mPresetTurns{ 3 };
 
-        // Animasyon parametreleri
+        // Animation parameters
         int mSelectedAnimationType{ 0 };
         float mAnimationSpeed{ 1.0f };
         float mAnimationAmplitude{ 1.0f };
 
-        // Dosya işlemleri
+        // File operations
         char mFilePath[256] = "curves.json";
 
         DEFINE_MEMBER(SplinePtr, SelectedCurve, nullptr);

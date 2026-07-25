@@ -18,9 +18,9 @@
     } \
 \
   public: \
-    inline void Set##NAME(const TYPE& var) \
+    inline void Set##NAME(const TYPE& Value) \
     { \
-        m##NAME = var; \
+        m##NAME = Value; \
     }
 
 // Define member constant
@@ -46,9 +46,9 @@
     } \
 \
   public: \
-    inline void Set##NAME(TYPE* var) \
+    inline void Set##NAME(TYPE* Value) \
     { \
-        m##NAME = var; \
+        m##NAME = Value; \
     }
 
 // Define member pointer constant

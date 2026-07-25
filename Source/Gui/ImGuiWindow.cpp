@@ -24,7 +24,7 @@ void BSplineRenderer::ImGuiWindow::Draw()
     // Main control panel
     ImGui::Begin("Controls", nullptr, ImGuiWindowFlags_MenuBar);
 
-    // Menü çubuğu
+    // Menu bar
     if (ImGui::BeginMenuBar())
     {
         if (ImGui::BeginMenu("File"))

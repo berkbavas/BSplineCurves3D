@@ -18,10 +18,10 @@ struct Light
 // Glow effect settings
 struct GlowSettings
 {
-    float Intensity;      // Glow parlaklık yoğunluğu (0.0 - 3.0)
-    float Pulse;          // Puls animasyon hızı (0.0 = kapalı)
-    float Shimmer;        // Shimmer/parıltı efekti (0.0 - 1.0)
-    float CoreBoost;      // Merkez parlaklık güçlendirmesi (0.0 - 2.0)
+    float Intensity;      // Glow brightness intensity (0.0 - 3.0)
+    float Pulse;          // Pulse animation speed (0.0 = disabled)
+    float Shimmer;        // Shimmer / sparkle effect (0.0 - 1.0)
+    float CoreBoost;      // Center brightness boost (0.0 - 2.0)
 };
 
 uniform Curve uCurve;
