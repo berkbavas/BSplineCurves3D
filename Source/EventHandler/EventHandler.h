@@ -1,10 +1,11 @@
 #pragma once
 
+#include "Core/Mouse.h"
 #include "Curve/Spline.h"
 #include "Node/Camera/FreeCamera.h"
-#include "Core/Mouse.h"
 
 #include <Dense>
+
 #include <QInputEvent>
 #include <QObject>
 

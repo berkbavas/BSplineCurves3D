@@ -63,6 +63,7 @@ bool BSplineRenderer::CurveSerializer::LoadFromFile(const QString &FilePath, Cur
     File.close();
 
     QJsonDocument Doc = QJsonDocument::fromJson(Data);
+
     if (Doc.isNull())
     {
         return false;

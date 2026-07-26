@@ -48,14 +48,17 @@ void BSplineRenderer::AnimationManager::ApplyAnimation(SplinePtr pSpline)
 void BSplineRenderer::AnimationManager::Reset()
 {
     mTime = 0.0f;
+
     // Restore original positions
     for (auto &[pSpline, Positions] : mOriginalPositions)
     {
         const auto &Knots = pSpline->GetKnots();
+
         for (int i = 0; i < Knots.size() && i < Positions.size(); ++i)
         {
             Knots[i]->SetPosition(Positions[i]);
         }
+
         pSpline->MakeDirty();
     }
 }
@@ -63,13 +66,16 @@ void BSplineRenderer::AnimationManager::Reset()
 void BSplineRenderer::AnimationManager::SaveOriginalPositions(CurveContainer *pContainer)
 {
     mOriginalPositions.clear();
+
     for (const auto &pSpline : pContainer->GetCurves())
     {
         QVector<QVector3D> Positions;
+
         for (const auto &Knot : pSpline->GetKnots())
         {
             Positions.append(Knot->GetPosition());
         }
+
         mOriginalPositions[pSpline] = Positions;
     }
 }
@@ -113,6 +119,7 @@ void BSplineRenderer::AnimationManager::ApplyRotation(SplinePtr pSpline)
         QVector3D newPos = Rotation.map(OriginalPositions[i]);
         Knots[i]->SetPosition(newPos);
     }
+
     pSpline->MakeDirty();
 }
 
@@ -153,6 +160,7 @@ void BSplineRenderer::AnimationManager::ApplyWave(SplinePtr pSpline)
         QVector3D newPos = OriginalPositions[i] + QVector3D(0, offset, 0);
         Knots[i]->SetPosition(newPos);
     }
+
     pSpline->MakeDirty();
 }
 
@@ -173,6 +181,7 @@ void BSplineRenderer::AnimationManager::ApplyBounce(SplinePtr pSpline)
         QVector3D newPos = OriginalPositions[i] + QVector3D(0, Bounce, 0);
         Knots[i]->SetPosition(newPos);
     }
+
     pSpline->MakeDirty();
 }
 
@@ -197,5 +206,6 @@ void BSplineRenderer::AnimationManager::ApplySpiral(SplinePtr pSpline)
         RotatedPos += QVector3D(0, SpiralOffset, 0);
         Knots[i]->SetPosition(RotatedPos);
     }
+
     pSpline->MakeDirty();
 }

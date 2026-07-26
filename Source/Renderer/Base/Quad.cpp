@@ -30,6 +30,21 @@ BSplineRenderer::Quad::Quad()
     glEnableVertexAttribArray(1);
 }
 
+BSplineRenderer::Quad::~Quad()
+{
+    if (mVAO)
+    {
+        glDeleteVertexArrays(1, &mVAO);
+        mVAO = 0;
+    }
+
+    if (mVBO)
+    {
+        glDeleteBuffers(1, &mVBO);
+        mVBO = 0;
+    }
+}
+
 void BSplineRenderer::Quad::Render()
 {
     glBindVertexArray(mVAO);

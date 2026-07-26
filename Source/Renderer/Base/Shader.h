@@ -28,11 +28,11 @@ namespace BSplineRenderer
         template<typename T>
         void SetUniformValue(const QString& Name, T Value)
         {
-            const auto location = pProgram->uniformLocation(Name);
+            const auto Location = pProgram->uniformLocation(Name);
 
-            if (0 <= location)
+            if (0 <= Location)
             {
-                pProgram->setUniformValue(location, Value);
+                pProgram->setUniformValue(Location, Value);
             }
             else
             {
@@ -43,15 +43,15 @@ namespace BSplineRenderer
         template<typename T>
         void SetUniformValueArray(const QString& Name, const QVector<T>& Values)
         {
-            const auto location = pProgram->uniformLocation(Name);
+            const auto Location = pProgram->uniformLocation(Name);
 
-            if (0 <= location)
+            if (0 <= Location)
             {
-                pProgram->setUniformValueArray(location, Values.constData(), Values.size());
+                pProgram->setUniformValueArray(Location, Values.constData(), Values.size());
             }
             else
             {
-                LOG_WARN("Shader::SetUniformValue: Uniform location '{}' could not be found.", Name.toStdString());
+                LOG_WARN("Shader::SetUniformValueArray: Uniform location '{}' could not be found.", Name.toStdString());
             }
         }
 

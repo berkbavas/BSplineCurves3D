@@ -24,43 +24,7 @@ void BSplineRenderer::ImGuiWindow::Draw()
     // Main control panel
     ImGui::Begin("Controls", nullptr, ImGuiWindowFlags_MenuBar);
 
-    // Menu bar
-    if (ImGui::BeginMenuBar())
-    {
-        if (ImGui::BeginMenu("File"))
-        {
-            if (ImGui::MenuItem("Save Curves", "Ctrl+S"))
-            {
-                CurveSerializer::SaveToFile(QString(mFilePath), mCurveContainer);
-            }
-            if (ImGui::MenuItem("Load Curves", "Ctrl+O"))
-            {
-                CurveSerializer::LoadFromFile(QString(mFilePath), mCurveContainer);
-            }
-            ImGui::EndMenu();
-        }
-        if (ImGui::BeginMenu("Edit"))
-        {
-            auto& UndoManager = UndoRedoManager::Instance();
-            if (ImGui::MenuItem("Undo", "Ctrl+Z", false, UndoManager.CanUndo()))
-            {
-                UndoManager.Undo();
-            }
-            if (ImGui::MenuItem("Redo", "Ctrl+Y", false, UndoManager.CanRedo()))
-            {
-                UndoManager.Redo();
-            }
-            ImGui::EndMenu();
-        }
-        if (ImGui::BeginMenu("View"))
-        {
-            ImGui::MenuItem("Statistics", nullptr, &mShowStatistics);
-            ImGui::MenuItem("Help", "F1", &mShowHelp);
-            ImGui::EndMenu();
-        }
-        ImGui::EndMenuBar();
-    }
-
+    DrawMenuBar();
     DrawRenderSettings();
     DrawCurvePanel();
     DrawPresetShapesPanel();
@@ -483,6 +447,45 @@ void BSplineRenderer::ImGuiWindow::DrawHelpPanel()
     ImGui::BulletText("Themes: Change UI appearance");
 
     ImGui::End();
+}
+
+void BSplineRenderer::ImGuiWindow::DrawMenuBar()
+{
+    if (ImGui::BeginMenuBar())
+    {
+        if (ImGui::BeginMenu("File"))
+        {
+            if (ImGui::MenuItem("Save Curves", "Ctrl+S"))
+            {
+                CurveSerializer::SaveToFile(QString(mFilePath), mCurveContainer);
+            }
+            if (ImGui::MenuItem("Load Curves", "Ctrl+O"))
+            {
+                CurveSerializer::LoadFromFile(QString(mFilePath), mCurveContainer);
+            }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Edit"))
+        {
+            auto& UndoManager = UndoRedoManager::Instance();
+            if (ImGui::MenuItem("Undo", "Ctrl+Z", false, UndoManager.CanUndo()))
+            {
+                UndoManager.Undo();
+            }
+            if (ImGui::MenuItem("Redo", "Ctrl+Y", false, UndoManager.CanRedo()))
+            {
+                UndoManager.Redo();
+            }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("View"))
+        {
+            ImGui::MenuItem("Statistics", nullptr, &mShowStatistics);
+            ImGui::MenuItem("Help", "F1", &mShowHelp);
+            ImGui::EndMenu();
+        }
+        ImGui::EndMenuBar();
+    }
 }
 
 void BSplineRenderer::ImGuiWindow::ApplyTheme(ThemeStyle Style)

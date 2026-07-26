@@ -27,6 +27,21 @@ BSplineRenderer::Interval::Interval(float Start, float End, int Size)
     glBindVertexArray(0);
 }
 
+BSplineRenderer::Interval::~Interval()
+{
+    if (mVAO)
+    {
+        glDeleteVertexArrays(1, &mVAO);
+        mVAO = 0;
+    }
+
+    if (mVBO)
+    {
+        glDeleteBuffers(1, &mVBO);
+        mVBO = 0;
+    }
+}
+
 void BSplineRenderer::Interval::Bind()
 {
     glBindVertexArray(mVAO);
@@ -40,21 +55,6 @@ void BSplineRenderer::Interval::Render()
 void BSplineRenderer::Interval::Release()
 {
     glBindVertexArray(0);
-}
-
-void BSplineRenderer::Interval::Destroy()
-{
-    if (mVAO)
-    {
-        glDeleteVertexArrays(1, &mVAO);
-        mVAO = 0;
-    }
-
-    if (mVBO)
-    {
-        glDeleteBuffers(1, &mVBO);
-        mVBO = 0;
-    }
 }
 
 float BSplineRenderer::Interval::GetDelta() const

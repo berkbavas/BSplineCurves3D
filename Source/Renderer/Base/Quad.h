@@ -8,6 +8,7 @@ namespace BSplineRenderer
     {
       public:
         Quad();
+        ~Quad();
 
         void Render();
 

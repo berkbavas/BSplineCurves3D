@@ -11,11 +11,11 @@ namespace BSplineRenderer
     {
       public:
         explicit Interval(float Start, float End, int Size);
+        ~Interval();
 
         void Bind();
         void Render();
         void Release();
-        void Destroy();
         float GetDelta() const;
 
       private:

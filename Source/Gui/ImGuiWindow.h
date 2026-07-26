@@ -47,6 +47,7 @@ namespace BSplineRenderer
         void DrawThemePanel();
         void DrawCameraPanel();
         void DrawHelpPanel();
+        void DrawMenuBar();
 
         void ApplyTheme(ThemeStyle Style);
 
