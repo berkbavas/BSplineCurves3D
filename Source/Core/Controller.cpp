@@ -71,7 +71,7 @@ void BSplineRenderer::Controller::Run()
 {
     qDebug() << "Controller::Controller: Application starting...";
     qInstallMessageHandler(Logger::QtMessageOutputCallback);
-    mWindow->showMinimized();
+    mWindow->showMaximized();
 }
 
 void BSplineRenderer::Controller::Initialize()
@@ -81,8 +81,6 @@ void BSplineRenderer::Controller::Initialize()
     mRendererManager->Initialize();
 
     QtImGui::initialize(mWindow);
-
-    mWindow->showMaximized();
 }
 
 void BSplineRenderer::Controller::Render(float Ifps)
